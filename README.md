@@ -14,15 +14,20 @@
     pip install -r requirements.txt
 #### </command>
 
-### 4) Переходим в папку с файлом manage.py:
+### 4) Настраиваем переменные окружения:
+#### <command>
+    echo > .env 'SECRET_KEY="your_secret_key"\nDEBUG=True' 
+#### </command>
+
+### 5) Переходим в папку с файлом manage.py:
 #### <command>
     cd django_project
 #### <command>
 
-### 5) Прописываем следующую команду для запуска локального сервера:
+### 6) Прописываем следующую команду для запуска локального сервера:
 #### <command>
     python manage.py runserver
 #### </command>
-### 6) Переходим на http://127.0.0.1:8000/
+### 7) Переходим на http://127.0.0.1:8000/
 
 ### Всё, проект запущен в dev-режиме
