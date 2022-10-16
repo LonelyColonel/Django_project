@@ -1,7 +1,7 @@
 ### Как запустить проект в dev-режиме?
 ### 1) Создаём новый проект и клонируем этот репозиторий, прописывая в терминале:
 #### <command>
-    git clone https://github.com/LonelyColonel/test.git
+    git clone https://github.com/LonelyColonel/Django_project.git
 #### </command>
 
 ### 2) Устанавливаем зависимости:
