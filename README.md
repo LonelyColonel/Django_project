@@ -14,9 +14,9 @@
     pip install -r requirements.txt
 #### </command>
 
-### 4) Настраиваем переменные окружения:
+### 4) Настраиваем переменные окружения. Все нужные переменные можно посмотреть в файле ".env_example.txt":
 #### <command>
-    echo > .env 'SECRET_KEY="your_secret_key"\nDEBUG=True' 
+    echo > .env 'SECRET_KEY="your_secret_key"\nDEBUG=True'
 #### </command>
 
 ### 5) Переходим в папку с файлом manage.py:
