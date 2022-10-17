@@ -16,10 +16,10 @@
 
 ### 4) Настраиваем переменные окружения. Все нужные переменные можно посмотреть в файле ".env_example.txt":
 #### <command>
-    echo SECRET_KEY="your-secret-key" > .env
+    echo SECRET_KEY="your-secret-key" >> .env
 #### </command>
 #### <command>
-    echo DEBUG=True > .env
+    echo DEBUG=True >> .env
 #### </command>
 
 ### 5) Переходим в папку с файлом manage.py:
