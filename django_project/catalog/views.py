@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 
 def item_list(request):
-    return HttpResponse(f'Список элементов')
+    return HttpResponse('Список элементов')
 
 
 def item_detail(request, pk):
