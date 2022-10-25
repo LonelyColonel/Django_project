@@ -34,7 +34,7 @@ class StaticURLTests(TestCase):
         response = Client().get(f'/catalog/{string}/')
         self.assertEqual(response.status_code, 404)
 
-    def test_max_values(self):
+    def test_mix_values(self):
         values = '123abc123abc'
         response = Client().get(f'/catalog/{values}/')
         self.assertEqual(response.status_code, 404)
