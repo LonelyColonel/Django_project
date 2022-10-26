@@ -27,6 +27,6 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python django_project/manage.py test
+        python django_project/manage.py test django_project
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
