@@ -11,22 +11,23 @@ class StaticURLTests(TestCase):
         numbers = [1, 2, 3123, 4, 98, 6234, 7444, 80, 999999999]
         for i in numbers:
             response = Client().get(f'/catalog/{i}/')
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 200,
+                             msg=f'error number: {i}')
 
     # test errors
     def test_negative_numbers(self):
         number = -10
-        response = Client().get(f'/catalog/{number}')
+        response = Client().get(f'/catalog/{number}/')
         self.assertEqual(response.status_code, 404)
 
     def test_float_numbers(self):
         number = 3.1415
-        response = Client().get(f'/catalog/{number}')
+        response = Client().get(f'/catalog/{number}/')
         self.assertEqual(response.status_code, 404)
 
     def test_null_number(self):
         number = 0
-        response = Client().get(f'/catalog/{number}')
+        response = Client().get(f'/catalog/{number}/')
         self.assertEqual(response.status_code, 404)
 
     def test_catalog_item_detail_string(self):
@@ -36,5 +37,10 @@ class StaticURLTests(TestCase):
 
     def test_mix_values(self):
         values = '123abc123abc'
+        response = Client().get(f'/catalog/{values}/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_symbols_values(self):
+        values = '/#$(*&!@#@!!!!&^((")\n'
         response = Client().get(f'/catalog/{values}/')
         self.assertEqual(response.status_code, 404)
