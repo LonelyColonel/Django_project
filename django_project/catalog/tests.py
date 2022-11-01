@@ -79,5 +79,3 @@ class ModelsTest(TestCase):
         self.item.tags.add(self.tag)
 
         self.assertEqual(Item.objects.count(), not item_count, f'item_count: {item_count}')
-
-
