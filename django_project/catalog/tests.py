@@ -1,4 +1,6 @@
 from django.test import TestCase, Client
+from django.forms import ValidationError
+from catalog.models import Item, Tag, Category
 
 
 class StaticURLTests(TestCase):
@@ -44,3 +46,25 @@ class StaticURLTests(TestCase):
         values = '/#$(*&!@#@!!!!&^((")\n'
         response = Client().get(f'/catalog/{values}/')
         self.assertEqual(response.status_code, 404)
+
+
+class ModelsTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.category = Category.objects.create(is_published=True,
+                                              name='Тестовая категория',
+                                              slug='test-category-slug')
+        cls.tag = Tag.objects.create(is_published=True, name='Тестовый тэг',
+                                    slug='test-tag-slug')
+
+    def test_unable_one_letter(self):
+        item_count = Item.objects.count()
+        with self.assertRaises(ValidationError):
+            self.item = Item(name='Тестовый item',
+                             category=self.category)
+            self.item.full_clean()
+            self.item.save()
+            self.item.tags.add(self.tag)
+
+        self.assertEqual(Item.objects.count(), item_count + 1)
