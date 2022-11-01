@@ -27,9 +27,11 @@ class Tag(DefaultDBfields):
 
 
 class Item(DefaultDBfields):
-    text = models.TextField(verbose_name='Текст', help_text='Опишите объект', validators=[validate_amazing])
+    text = models.TextField(verbose_name='Текст', help_text='Опишите объект',
+                            validators=[validate_amazing('превосходно', 'роскошно', 'amazing', 'wonderful')])
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категории', related_name='items_category')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категории',
+                                 related_name='items_category')
 
     tags = models.ManyToManyField(Tag, verbose_name='теги')
 

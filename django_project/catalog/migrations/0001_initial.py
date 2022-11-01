@@ -17,7 +17,8 @@ class Migration(migrations.Migration):
             name='Category',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='id')),
-                ('name', models.CharField(help_text='max 150 символов', max_length=150, verbose_name='Название')),
+                ('name', models.CharField(help_text='max 150 символов', max_length=150,
+                                          verbose_name='Название')),
                 ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
                 ('slug', models.SlugField(max_length=200, unique=True, verbose_name='slug')),
                 ('weight', models.PositiveSmallIntegerField(default=100, verbose_name='Вес')),
@@ -46,8 +47,11 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='id')),
                 ('name', models.CharField(help_text='max 150 символов', max_length=150, verbose_name='Название')),
                 ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
-                ('text', models.TextField(help_text='Опишите объект', validators=[catalog.validators.validate_amazing], verbose_name='Текст')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items_category', to='catalog.category')),
+                ('text', models.TextField(help_text='Опишите объект',
+                                          validators=[catalog.validators.validate_amazing],
+                                          verbose_name='Текст')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                               related_name='items_category', to='catalog.category')),
                 ('tags', models.ManyToManyField(to='catalog.Tag')),
             ],
             options={

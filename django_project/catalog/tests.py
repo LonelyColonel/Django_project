@@ -53,10 +53,10 @@ class ModelsTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.category = Category.objects.create(is_published=True,
-                                              name='Тестовая категория',
-                                              slug='test-category-slug')
+                                               name='Тестовая категория',
+                                               slug='test-category-slug')
         cls.tag = Tag.objects.create(is_published=True, name='Тестовый тэг',
-                                    slug='test-tag-slug')
+                                     slug='test-tag-slug')
 
     def test_unable_one_letter(self):
         item_count = Item.objects.count()
@@ -67,4 +67,17 @@ class ModelsTest(TestCase):
             self.item.save()
             self.item.tags.add(self.tag)
 
-        self.assertEqual(Item.objects.count(), item_count + 1)
+        self.assertEqual(Item.objects.count(), item_count, f'item_count: {item_count}')
+
+    def test_item_with_text(self):
+        item_count = Item.objects.count()
+        self.item = Item(name='Тестовый item',
+                         text='превосходно',
+                         category=self.category)
+        self.item.full_clean()
+        self.item.save()
+        self.item.tags.add(self.tag)
+
+        self.assertEqual(Item.objects.count(), not item_count, f'item_count: {item_count}')
+
+
