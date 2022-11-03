@@ -58,20 +58,22 @@ class ModelsTest(TestCase):
         cls.tag = Tag.objects.create(is_published=True, name='Тестовый тэг',
                                      slug='test-tag-slug')
 
+    def tearDown(self):
+        self.item.delete()
+        self.item.save()
+
     def test_unable_one_letter(self):
         item_count = Item.objects.count()
         with self.assertRaises(ValidationError):
-            self.item = Item(name='Тестовый item',
+            self.item = Item(id=1,
+                             name='Тестовый item',
+                             text='test-text-bad',
                              category=self.category)
             self.item.full_clean()
             self.item.save()
             self.item.tags.add(self.tag)
 
         self.assertEqual(Item.objects.count(), item_count, f'item_count: {item_count}')
-
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
 
     def test_item_with_text(self):
         item_count = Item.objects.count()
@@ -83,3 +85,4 @@ class ModelsTest(TestCase):
         self.item.tags.add(self.tag)
 
         self.assertEqual(Item.objects.count(), item_count + 1, f'item_count: {item_count}')
+        self.tearDown()
