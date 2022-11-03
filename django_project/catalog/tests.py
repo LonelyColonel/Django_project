@@ -69,6 +69,10 @@ class ModelsTest(TestCase):
 
         self.assertEqual(Item.objects.count(), item_count, f'item_count: {item_count}')
 
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+
     def test_item_with_text(self):
         item_count = Item.objects.count()
         self.item = Item(name='Тестовый item',
@@ -78,4 +82,4 @@ class ModelsTest(TestCase):
         self.item.save()
         self.item.tags.add(self.tag)
 
-        self.assertEqual(Item.objects.count(), not item_count, f'item_count: {item_count}')
+        self.assertEqual(Item.objects.count(), item_count + 1, f'item_count: {item_count}')

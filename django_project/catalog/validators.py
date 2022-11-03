@@ -1,15 +1,16 @@
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
+from functools import wraps
+import re
 
 
 def validate_amazing(*args):
-    from functools import wraps
 
-    @wraps(args)
+    @wraps(validate_amazing)
     def validator(value):
-        must_be_in_our_item = args
-
-        if not any(filter(lambda x: x.lower() in value.lower(), must_be_in_our_item)):
-            raise ValidationError(f'Обязательно нужно использовать слова {", ".join(must_be_in_our_item)}!')
-        return value
+        pattern = re.compile(fr'.*(\b({"|".join(args)})\b).*', re.I)
+        for i in value.split('\n'):
+            if re.fullmatch(pattern, i):
+                return value
+        raise ValidationError(f'Обязательно нужно использовать слова {", ".join(args)}.')
 
     return validator
