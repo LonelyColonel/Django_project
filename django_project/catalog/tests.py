@@ -59,6 +59,7 @@ class ModelsTest(TestCase):
                                      slug='test-tag-slug')
 
     def tearDown(self):
+        super().tearDown()
         Item.objects.all().delete()
 
     def test_unable_one_letter(self):
