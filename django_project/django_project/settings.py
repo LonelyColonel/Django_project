@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,16 +13,21 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'sorl.thumbnail',
+    'django_cleanup',
+    'tinymce',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage',
-    'catalog',
-    'about',
-    'core',
+
+    'core.apps.CoreConfig',
+    'homepage.apps.HomepageConfig',
+    'about.apps.AboutConfig',
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -97,3 +101,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
