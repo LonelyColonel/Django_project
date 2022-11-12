@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
-from sorl.thumbnail import get_thumbnail
 from catalog.models import Item, Tag, Category, Gallery, Preview
 
 admin.site.register(Tag)

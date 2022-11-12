@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from .validators import validate_amazing
 from core.models import DefaultDBfields
