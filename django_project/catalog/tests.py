@@ -67,7 +67,8 @@ class ModelsTest(TestCase):
         with self.assertRaises(ValidationError):
             self.item = Item(name='Тестовый item',
                              text='test-text-bad',
-                             category=self.category)
+                             category=self.category,
+                             upload='static_dev/img/cat.jpg')
             self.item.full_clean()
             self.item.save()
             self.item.tags.add(self.tag)
@@ -77,7 +78,8 @@ class ModelsTest(TestCase):
         item_count = Item.objects.count()
         self.item = Item(name='Тестовый item',
                          text='превосходно',
-                         category=self.category)
+                         category=self.category,
+                         upload='static_dev/img/cat.jpg')
         self.item.full_clean()
         self.item.save()
         self.item.tags.add(self.tag)
