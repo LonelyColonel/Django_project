@@ -1,12 +1,14 @@
 from django.contrib import admin
-from catalog.models import Item, Tag, Category, Gallery, Preview
+from django.utils.safestring import mark_safe
+from sorl.thumbnail import get_thumbnail
+from catalog.models import Item, Tag, Category, Gallery
 
 admin.site.register(Tag)
 admin.site.register(Category)
 
 
 class PhotoGaleryInline(admin.TabularInline):
-    model = Preview
+    model = Gallery
     name = 'fk_item'
 
 
@@ -24,5 +26,16 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
-    list_display = ('item', 'image', 'image_tmb',)
+    list_display = ('item', 'image', 'image_tmb')
     list_editable = ('image',)
+
+    def get_image(self, obj):
+        return get_thumbnail(obj.image, '300x300', crop='center', quality=51)
+
+    def image_tmb(self, obj):
+        if obj.image:
+            return mark_safe(f'<img src="{self.get_image(obj).url}">')
+        return 'нет изображения'
+
+    image_tmb.short_descriptions = 'картинка'
+    image_tmb.allow_tags = True

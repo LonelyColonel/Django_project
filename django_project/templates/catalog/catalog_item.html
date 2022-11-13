@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<br>
+{{ pk }}
+<br>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'img/cat.jpg' %}" class="d-block w-100" alt="ХАРОШ">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/cat.jpg' %}" class="d-block w-100" alt="МЕГАХАРОШ">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/cat.jpg' %}" class="d-block w-100" alt="СУПЕРПУПЕРМЕГАХАРОШ">
+    </div>
+  </div>
+</div>
+
+{% endblock %}

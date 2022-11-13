@@ -29,39 +29,6 @@ class Tag(DefaultDBfields):
         return self.name[:15]
 
 
-class Gallery(models.Model):
-    image = models.ImageField(
-        upload_to='uploads/',
-        verbose_name='Изображение'
-    )
-
-    item = models.ForeignKey(
-        verbose_name='Товар',
-        to='Item',
-        related_name='gallery',
-        on_delete=models.CASCADE
-    )
-
-    @property
-    def get_image(self):
-        return get_thumbnail(self.image, '300x300', crop='center', quality=51)
-
-    def image_tmb(self):
-        if self.image:
-            return mark_safe(f'<img src="{self.get_image.url}">')
-        return 'нет изображения'
-
-    image_tmb.short_descriptions = 'превью изображения'
-    image_tmb.allow_tags = True
-
-    def __str__(self):
-        return self.item.name
-
-    class Meta:
-        verbose_name = 'изображение в галерее'
-        verbose_name_plural = 'изображения в галерее'
-
-
 class Item(DefaultDBfields):
     text = HTMLField(verbose_name='текст', help_text='Опишите объект. В описании обязательно '
                                                      'должны быть слова: роскошно, или превосходно, '
@@ -74,7 +41,7 @@ class Item(DefaultDBfields):
 
     tags = models.ManyToManyField(Tag, verbose_name='теги')
 
-    upload = models.ImageField(default='', verbose_name='изображение', upload_to='upload/%Y/%m')
+    upload = models.ImageField(verbose_name='превью', upload_to='upload/%Y/%m')
 
     @property
     def get_img(self):
@@ -95,18 +62,23 @@ class Item(DefaultDBfields):
         verbose_name_plural = 'товары'
 
     def __str__(self):
-        return self.text[:15]
+        return self.name
 
 
-class Preview(models.Model):
-    img = models.ImageField(upload_to='preview/%Y/%m', null=True, verbose_name="Изображение",
-                            help_text="Загрузите картинку")
-    item = models.OneToOneField(Item, on_delete=models.CASCADE, primary_key=True,
-                                verbose_name="Товар", help_text="Выберите товар")
+class Gallery(models.Model):
+    image = models.ImageField(
+        upload_to='uploads/',
+        verbose_name='Изображения'
+    )
+
+    item = models.ForeignKey(Item,
+                             verbose_name='Товар',
+                             related_name='gallery',
+                             on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.img.url
+        return self.image.url
 
     class Meta:
-        verbose_name = "изображение"
-        verbose_name_plural = "изображения"
+        verbose_name = 'изображение в галерее'
+        verbose_name_plural = 'изображения в галерее'

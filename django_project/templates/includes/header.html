@@ -1,6 +1,6 @@
 {% load static %}
-
-<head>
+{% load active_link_tags %}
+<header>
     <nav class="navbar navbar-expand-lg navbar-dark p-3 bg-dark" id="headerNav">
         <div class="container-fluid">
 
@@ -10,48 +10,22 @@
             </button>
 
             <a class="nav-link mx-2" href="/">
-                <img src='{% static "/img/icons/android-chrome-384x384.png" %}' height="80"/>
+                <img src='{% static "/img/icons/android-chrome-384x384.png" %}' alt="" height="80">
             </a>
 
+
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
                 <ul class="navbar-nav fs-1">
-                    {% with request.resolver_match.view_name as view_name %}
-                        {%if view_name == 'homepage:homepage_home' %}
-                        <li class="nav-item active">
-                            <a class="nav-link mx-3 active" href="{% url 'homepage:homepage_home' %}">Главная страница</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link mx-3" href="{% url 'homepage:homepage_home' %}">Главная страница</a>
-                        </li>
-                        {% endif %}
-
-
-                        {%if view_name == 'catalog:catalog_page' %}
-                        <li class="nav-item active">
-                            <a class="nav-link mx-3 active" href="{% url 'catalog:catalog_page' %}">Товары</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link mx-3" href="{% url 'catalog:catalog_page' %}">Товары</a>
-                        </li>
-                        {% endif %}
-
-
-                        {%if view_name == 'about:about_page' %}
-                        <li class="nav-item active">
-                            <a class="nav-link mx-3 active" href="{% url 'about:about_page' %}">О сайте</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link mx-3" href="{% url 'about:about_page' %}">О сайте</a>
-                        </li>
-                        {% endif %}
-
-                    {% endwith %}
+                    <li class="nav-item"><a href="{% url 'homepage:homepage_home' %}"
+                                            class="{% active_link 'homepage:homepage_home' strict=True%} nav-link mx-3">Главная страница</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url 'catalog:catalog_page' %}"
+                                            class="{% active_link 'catalog:catalog_page'%} nav-link mx-3">Товары</a></li>
+                    <li class="nav-item"><a href="{% url 'about:about_page' %}"
+                                            class="{% active_link 'about:about_page' strict=True%} nav-link mx-3">О сайте</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
-</head>
+</header>

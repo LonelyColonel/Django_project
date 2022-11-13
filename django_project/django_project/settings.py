@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'django_cleanup',
     'tinymce',
+    'active_link',
 
     'django.contrib.admin',
     'django.contrib.auth',
